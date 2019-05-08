@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}  
+<div class="table-responsive" style="font-size:20px">         
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Chargingpoint</th>
+        <th>Date</th>
+        <th>Length</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    {% for session in sessions%}
+     <tbody id="myTable">
+      <tr>
+        <td>{{session.id}}</td>
+        <td>{{session.chargingpoint_id}}</td>
+        {% for user in users%}
+       {% if user.id == session.user_id %}
+        <td>{{user.name}}</td>
+       {% endif %}
+       {% endfor %}
+        <td>{{session.created.strftime(('%y-%m-%d %H:%M:%S'))}}</td>
+       {% if session.endtime is not none %}
+        <td>{{(session.endtime - session.created)}} </td>
+        <td>{{(((session.endtime - session.created).total_seconds() / 60) * 0.20)}}</td>
+        {% else %}
+        <td colspan="2"> currently charging at chargingpoint {{session.chargingpoint_id}}</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+  
+{% endblock %}

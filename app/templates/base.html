@@ -1,0 +1,79 @@
+{% extends 'bootstrap/base.html' %}
+
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+
+{% block styles %}
+{{super()}}
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{url_for('.static', filename='mystyle.css')}}">
+{% endblock %}
+{% block title %}
+    {% if title %}{{ title }} - Afstudeeronderzoek{% endif %}
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='favicon.ico') }}" width="50" height="50"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span> 
+    {% if current_user.is_authenticated %}
+    {% set new_messages = current_user.new_messages() %}
+    {% if new_messages %}
+    <span class="badge">{{ new_messages }}</span>
+    {% endif %}
+    {% endif %}
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('index') }}"><h3>Home</h3> <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('admin_dashboard')}}"><h3>Dashboard</h3> <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('admin_dashboard_table')}}"><h3>Sessions</h3> <span class="sr-only">(current)</span></a>
+      </li>
+      {% if current_user.is_authenticated %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('messages')}}">
+              <h3>{{ ('Messages') }}
+              {% set new_messages = current_user.new_messages() %}
+              {% if new_messages %}
+              <span class="badge">{{ new_messages }}</span>
+              {% endif %}
+              </h3>
+          </a>
+      </li>
+      {% endif %}
+    </ul>
+    
+      {% if current_user.is_anonymous %}
+      <li class="nav navbar-nav navbar-right"><a class="nav-link" href="{{ url_for('login') }}"><h3>Login</h3></a></li>
+      {% else %}
+      <li class="nav navbar-nav navbar-right"><a class="nav-link" href="{{ url_for('logout') }}"><h3>Logout</h3></a></li>
+      {% endif %}
+
+  </div>
+</nav>
+{% endblock %}
+
+
+
+
+{% block content %}
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}
