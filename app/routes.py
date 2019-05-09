@@ -21,7 +21,7 @@ def plus():
 def index():
     user = User.query.filter_by(username = current_user.username).first_or_404()
     sessions = Session.query.filter_by(user_id = user.id).order_by(Session.created.desc())
-    return render_template('index.html', title='Home', sessions=sessions)
+    return render_template('index.html', title='Home', sessions=sessions, datetime=datetime)
 
 @app.route('/messages')
 @login_required
@@ -100,7 +100,7 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(name=form.name.data, username=form.username.data, email=form.email.data,licenseplate=form.licenseplate.data)
+        user = User(name=form.name.data, username=form.username.data, email=form.email.data,licenseplate=form.licenseplate.data,last_message_read_time=datetime.utcnow())
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
