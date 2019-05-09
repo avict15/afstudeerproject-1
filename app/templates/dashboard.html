@@ -9,13 +9,47 @@
     <div class="col-md-12">
       <div class="card text-white bg-success">
         <div class="card-body bg-success">
-          <div class="rotate">
-            <i class="fa fa-user fa-5x"></i>
-          </div>
           <h1 class="text-uppercase">Laadpaal {{chargingpoint.id}}</h1>
-          
-          <button class="btn btn-link float-right" data-toggle="collapse" data-target="#{{chargingpoint.id }}" aria-expanded="true" aria-controls="{{chargingpoint.id}}">
-          <img src="{{ url_for('static', filename='plus.png') }}" width="75" height="75">
+          <div class="col-lg-3 col-md-6">
+          <div class="card text-white card-info">
+            <div class="card-body bg-info">
+              <h6 class="text-uppercase">ID</h6>
+              <h1 class="display-1">{{chargingpoint.id}}</h1>
+            </div>
+          </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+          <div class="card text-white card-info">
+            <div class="card-body bg-info">
+              <h6 class="text-uppercase">Price</h6>
+              <h1 class="display-1">{{chargingpoint.price}}</h1>
+            </div>
+          </div>
+          </div>
+          {% for session in sessions%}
+            {% if session.chargingpoint_id == chargingpoint.id and session.endtime == None %}
+            <div class="col-lg-3 col-md-6">
+            <div class="card text-white card-info">
+              <div class="card-body bg-info">
+              <h6 class="text-uppercase">Current user</h6>
+              {% for user in users%}
+              {% if user.id == session.user_id %}
+              <h1 class="display-1">{{ user.name }}</h1>
+              {% endif %}
+              {% endfor %}
+              </div>
+            </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+            <div class="card text-white card-info">
+              <div class="card-body bg-info">
+              <h6 class="text-uppercase">Start time</h6>
+              <h1 class="display-1">{{ session.created.strftime('%m-%d %H:%M:%S') }}</h1>
+              </div>
+            </div>
+            </div>
+            {% endif %}
+          {% endfor %}
         </button>
         </div>
       </div>
@@ -29,71 +63,12 @@
         </div>
         <h1 class="text-uppercase">Laadpaal {{chargingpoint.id}}</h1>
        
-         <button class="btn btn-link float-right" data-toggle="collapse" data-target="#{{chargingpoint.id }}" aria-expanded="true" aria-controls="{{chargingpoint.id}}">
-          <img src="{{ url_for('static', filename='plus.png') }}" width="75" height="75">
+         
         </button>
       </div>
     </div>
   </div>
   {% endif %}
-
-  <div id="{{chargingpoint.id}}" class="collapse" aria-labelledby="{{chargingpoint.id}}" data-parent="#accordion">
-   <div class="row">
-  <div class="col-lg-3 col-md-6">
-     <div class="card text-white card-info">
-      <div class="card-body bg-info">
-       <div class="rotate">
-        <i class="fa fa-user fa-5x"></i>
-       </div>
-       <h6 class="text-uppercase">ID</h6>
-       <h1 class="display-1">{{chargingpoint.id}}</h1>
-      </div>
-     </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-     <div class="card text-white card-info">
-      <div class="card-body bg-info">
-       <div class="rotate">
-        <i class="fa fa-list fa-4x"></i>
-       </div>
-       <h6 class="text-uppercase">Price</h6>
-       <h1 class="display-1">{{chargingpoint.price}}</h1>
-      </div>
-     </div>
-    </div>
-    {% for session in sessions%}
-    {% if session.chargingpoint_id == chargingpoint.id and session.endtime == None %}
-    <div class="col-lg-3 col-md-6">
-     <div class="card text-white card-info">
-      <div class="card-body bg-info">
-       <div class="rotate">
-        <i class="fa fa-twitter fa-5x"></i>
-       </div>
-       <h6 class="text-uppercase">Current user</h6>
-       {% for user in users%}
-       {% if user.id == session.user_id %}
-       <h1 class="display-1">{{ user.name }}</h1>
-       {% endif %}
-       {% endfor %}
-      </div>
-     </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-     <div class="card text-white card-info">
-      <div class="card-body bg-info">
-       <div class="rotate">
-        <i class="fa fa-twitter fa-5x"></i>
-       </div>
-       <h6 class="text-uppercase">Start time</h6>
-       <h1 class="display-1">{{ session.created.strftime('%m-%d %H:%M:%S') }}</h1>
-      </div>
-     </div>
-    </div>
-    {% endif %}
-    {% endfor %}
-    
-  </div>
-  </div>
 {% endfor %}
 </div>    
 {% endblock %}
