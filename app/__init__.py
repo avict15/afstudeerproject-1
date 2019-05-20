@@ -10,7 +10,7 @@ app = Flask(__name__)
 # app.config.from_object(Config)
 
 params = urllib.parse.quote_plus("Driver={ODBC Driver 17 for SQL Server};Server=tcp:afstudeerkoen.database.windows.net,1433;Database=app;Uid=koen@afstudeerkoen;Pwd=Snowroot20;TrustServerCertificate=no;Connection Timeout=30;")
-
+ 
 
 # initialization
 app = Flask(__name__)
