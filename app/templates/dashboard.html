@@ -7,20 +7,20 @@
 
 {% if chargingpoint.availability %}
     <div class="col-md-12">
-      <div class="card-header text-white">
+      <div class="card-header text-black">
         <div class="card-header">
           <h1 class="text-uppercase">Laadpaal {{chargingpoint.id}}</h1>
           <div class="col-lg-3 col-md-6">
-          <div class="card text-white card-info">
-            <div class="card-body bg-info">
+          <div class="card text-black">
+            <div class="card-body">
               <h6 class="text-uppercase">ID</h6>
               <h1 class="display-1">{{chargingpoint.id}}</h1>
             </div>
           </div>
           </div>
           <div class="col-lg-3 col-md-6">
-          <div class="card text-white card-info">
-            <div class="card-body bg-info">
+          <div class="card text-black">
+            <div class="card-body">
               <h6 class="text-uppercase">Price</h6>
               <h1 class="display-1">{{chargingpoint.price}}</h1>
             </div>
@@ -29,8 +29,8 @@
           {% for session in sessions%}
             {% if session.chargingpoint_id == chargingpoint.id and session.endtime == None %}
             <div class="col-lg-3 col-md-6">
-            <div class="card text-white card-info">
-              <div class="card-body bg-info">
+            <div class="card text-black">
+              <div class="card-body">
               <h6 class="text-uppercase">Current user</h6>
               {% for user in users%}
               {% if user.id == session.user_id %}
@@ -41,8 +41,8 @@
             </div>
             </div>
             <div class="col-lg-3 col-md-6">
-            <div class="card text-white card-info">
-              <div class="card-body bg-info">
+            <div class="card text-black">
+              <div class="card-body">
               <h6 class="text-uppercase">Start time</h6>
               <h1 class="display-1">{{ session.created.strftime('%m-%d %H:%M:%S') }}</h1>
               </div>
@@ -56,8 +56,8 @@
     </div>
   {% else %}
   <div class="col-md-12">
-    <div class="card text-white bg-danger">
-      <div class="card-body bg-danger">
+    <div class="card text-black">
+      <div class="card-body">
         <div class="rotate">
           <i class="fa fa-user fa-5x"></i>
         </div>
