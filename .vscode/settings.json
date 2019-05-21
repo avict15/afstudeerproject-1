@@ -1,4 +1,6 @@
 {
     "appService.defaultWebAppToDeploy": "/subscriptions/e3e57d59-e59a-454c-943f-29afc0b78068/resourceGroups/appsvc_rg_linux_centralus/providers/Microsoft.Web/sites/afstudeerkoen",
-    "appService.deploySubpath": ""
+    "appService.deploySubpath": "",
+    "python.pythonPath": "env/bin/python3.7",
+    "git.ignoreLimitWarning": true
 }
