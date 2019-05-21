@@ -2,13 +2,25 @@
 
 {% block content %}
 <div class="row">
-
+  <div class="col-md-12">
+    <div class="card-header text-black">
+      <div class="card-header">
+        <h1 class="text-uppercase">Laadpaal 4</h1>
+       <div class="col-lg-3 col-md-6">
+        <div class="card text-black">
+          <div class="card-body">
+            <h6 class="text-uppercase">Price</h6>
+            <h1 class="display-1">d</h1>
+          </div>
+        </div>
+        </div>
+        </div>
 {% for chargingpoint in chargingpoints%}
 
 {% if chargingpoint.availability %}
     <div class="col-md-12">
-      <div class="card text-black">
-        <div class="card-header">
+      <div class="card-header text-black">
+        <div class="card">
           <h1 class="text-uppercase">Laadpaal {{chargingpoint.id}}</h1>
           
           <div class="col-lg-3 col-md-6">
