@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 {% block content %}
-
+<IFRAME style="display:none" name="hidden-form"></IFRAME>  
 <div style="font-size:20px">         
   <table class="table" id="dashboard_table">
     <thead>
@@ -35,12 +35,37 @@
                         <form method="post" target="hidden-form">
                           <button formaction="../../api/stop_session/chargingpoint_{{chargingpoint.id}}" onClick="window.parent.location.reload();window.close()">End session </button>
                         </form>   
-                        <button id="sendMessage">Send message </button>
-                      </div>
-                    </div>
+                        <button type="button" data-toggle="modal" data-target="#{{user.id}}">Send message </button>
+                        
                   </td>
                 {% endif %}
               {% endfor %}
+              <div class="modal fade" id="{{session.user_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="formwrapper">
+                          <form method="post">
+                            {{ wtf.quick_form(form) }}
+                          
+                          </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                      
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
             {% endif %}
           {% endfor %}
         {% else %}
@@ -52,44 +77,9 @@
     {% endfor %}  
     </tbody>
   </table>
-</div>   
+</div>
 
-<div id="myModal" class="modal">
 
-    <!-- Modal content -->
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>{{ wtf.quick_form(form) }} </h2>
-    </div>
-  
-  </div>
 
-<IFRAME style="display:none" name="hidden-form"></IFRAME>  
-<script>
-    // Get the modal
-    var modal = document.getElementById("myModal");
-    
-    // Get the button that opens the modal
-    var btn = document.getElementById("sendMessage");
-    
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-    
-    // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-      modal.style.display = "block";
-    }
-    
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-      modal.style.display = "none";
-    }
-    
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-</script>
+
 {% endblock %}

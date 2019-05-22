@@ -40,13 +40,20 @@ def delete_message(message_id):
     return render_template('messages.html', messages=messages)
        
     
-@app.route('/admin/dashboard')
+@app.route('/admin/dashboard', methods=['GET','POST'])
 @login_required
 def admin_dashboard():
     chargepoints = Chargingpoint.query.all()
     sessions = Session.query.filter_by(endtime = None)
     users = User.query.all()
     form = SendMessageForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(id = form.user.data).first_or_404()
+        message = Message(recipient=user,body=form.text.data)
+        db.session.add(message)
+        db.session.commit()
+        flash('You send a message')
+        return render_template('dashboard.html', title='Dashboard', chargingpoints=chargepoints, sessions=sessions, users=users, form=form)
     return render_template('dashboard.html', title='Dashboard', chargingpoints=chargepoints, sessions=sessions, users=users, form=form)
 
 @app.route('/admin/dashboard_table')

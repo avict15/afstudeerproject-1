@@ -38,6 +38,7 @@ class RegistrationForm(FlaskForm):
 
 
 class SendMessageForm(FlaskForm):
-    text = TextAreaField('Text')
-    submit = SubmitField('Send message')
+    user = StringField('Name', validators=[DataRequired()])
+    text = TextAreaField('Text', validators=[DataRequired()])
+    submit = SubmitField('Send')
 
