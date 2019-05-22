@@ -25,47 +25,41 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header text-black">
-       
           <div class="col-lg-2 col-md-6">
               <div class="card-body text-black">
                   <h1 class="display-1">{{chargingpoint.id}}</h1>
               </div>
           </div>
-          
           {% if chargingpoint.availability %}
           <div class="col-lg-3 col-md-6">
             <div class="card-body text-black">
                 <h1 class="display-1">Charging...</h1>
             </div>
           </div>
-          
-
           {% for session in sessions%}
             {% if session.chargingpoint_id == chargingpoint.id and session.endtime == None %}
-            <div class="col-lg-3 col-md-6">
-              <div class="card-body text-black">
-                {% for user in users%}
-                {% if user.id == session.user_id %}
-                <h1 class="display-1">{{ user.name }}</h1>
-                {% endif %}
-                {% endfor %}
+              <div class="col-lg-3 col-md-6">
+                <div class="card-body text-black">
+                  {% for user in users%}
+                  {% if user.id == session.user_id %}
+                  <h1 class="display-1">{{ user.name }}</h1>
+                  {% endif %}
+                  {% endfor %}
+                </div>
               </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <div class="card-body text-black">
-                <h1 class="display-1">{{ session.created.strftime('%m-%d %H:%M:%S') }}</h1>
+              <div class="col-lg-3 col-md-6">
+                <div class="card-body text-black">
+                  <h1 class="display-1">{{ session.created.strftime('%m-%d %H:%M:%S') }}</h1>
+                </div>
               </div>
-            </div>
-            {% endif %}
+              {% endif %}
             {% endfor %}
-            
-
             {% else %}
-            <div class="col-lg-3 col-md-6">
-              <div class="card-body text-black">
-                  <br>
+              <div class="col-lg-3 col-md-6">
+                <div class="card-body text-black">
+                    <br>
+                </div>
               </div>
-            </div>
 
               <div class="col-lg-3 col-md-6">
                 <div class="card-body text-black">
@@ -78,14 +72,15 @@
                 </div>
               </div>
             {% endif %}
-                
-
-            <div class="col-lg-1 col-md-6">
-                <div class="card-body text-black">
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <a class="dropdown-item" href="#">End session </a>
+                  <a class="dropdown-item" href="#">Send message </a>
                 </div>
-            </div>
-          
+              </div>
         </div>
       </div>
     </div>
