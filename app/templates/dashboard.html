@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% import 'bootstrap/wtf.html' as wtf %}
 {% block content %}
 
 <div class="table-responsive" style="font-size:20px">         
@@ -59,7 +59,7 @@
     <!-- Modal content -->
     <div class="modal-content">
       <span class="close">&times;</span>
-      <p>Some text in the Modal..</p>
+      <h2>{{ wtf.quick_form(form) }} </h2>
     </div>
   
   </div>
