@@ -72,20 +72,23 @@
                 </div>
               </div>
             {% endif %}
-            <form method="post">
-            <div class="btn-group" role="group">
-                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown
-                </button>
-                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                  <button type="submit" formaction="../../api/stop_session/chargingpoint_{{chargingpoint_id}}">End session </button>
-                  <a class="dropdown-item" href="#">Send message </a>
-                </div>
+            
+              <div class="btn-group" role="group">
+                  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <form method="post" target="hidden-form">
+                      <button type="submit" formaction="../../api/stop_session/chargingpoint_"+{{chargingpoint_id}}>End session </button>
+                    </form>
+                    <a class="dropdown-item" href="#">Send message </a>
+                  </div>
               </div>
-              </form>
+            
         </div>
       </div>
     </div>
 {% endfor %}
 </div>    
+<IFRAME style="display:none" name="hidden-form"></IFRAME>  
 {% endblock %}
