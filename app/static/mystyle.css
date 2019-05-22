@@ -1,9 +1,15 @@
+
+
 .btn-default {
 	background-color:white;
   border-color:grey;
   /* border: 1px solid grey; */
   margin-bottom: 25px;
   margin-top: 20px;
+}
+
+.btn-group {
+  text-align: center;
 }
 
 .col-md-12 {
@@ -42,12 +48,11 @@ hr {
 .collapse.show {
   width:100%;
 }
-
-
 .navbar {
   border-radius: 0px;
 }
 
 table {
-  margin-left: 10px;
+  margin: 50px;
+  
 }
