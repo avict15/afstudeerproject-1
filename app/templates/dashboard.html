@@ -73,12 +73,12 @@
               </div>
             {% endif %}
             
-              <div class="btn-group" role="group">
+              <div class="btn-group col-xs-1 center-block" role="group">
                   <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown
                   </button>
                   <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                    {% if chargingpoint.availability}
+                    {% if chargingpoint.availability %}
                     <form method="post" target="hidden-form">
                       <button type="submit" formaction="../../api/stop_session/chargingpoint_{{chargingpoint.id}}">End session </button>
                     </form>
