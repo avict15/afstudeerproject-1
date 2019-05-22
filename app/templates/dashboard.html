@@ -4,7 +4,7 @@
 <div class="row">
 
 <div class="col-md-12">
-  <div class="col-lg-3 col-md-6">
+  <div class="col-lg-2 col-md-6">
     <h1 class="text-uppercase card-title">Laadpaal</h1>
   </div>
   <div class="col-lg-3 col-md-6">
@@ -17,7 +17,7 @@
     <h1 class="text-uppercase card-title">Start Time</h1>
   </div>
   <div class="col-lg-3 col-md-6">
-      
+    <br>  
   </div>
 </div>
 
@@ -26,7 +26,7 @@
       <div class="card">
         <div class="card-header text-black">
        
-          <div class="col-lg-3 col-md-6">
+          <div class="col-lg-2 col-md-6">
               <div class="card-body text-black">
                   <h1 class="display-1">{{chargingpoint.id}}</h1>
               </div>
@@ -57,7 +57,12 @@
               </div>
             </div>
             {% endif %}
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="col-lg-1 col-md-6">
+                <div class="card-body text-black">
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+              </div>
+           
           {% endfor %}
         </div>
       </div>
