@@ -54,24 +54,6 @@
               </div>
               {% endif %}
             {% endfor %}
-            {% else %}
-              <div class="col-lg-3 col-md-6">
-                <div class="card-body text-black">
-                    <br>
-                </div>
-              </div>
-
-              <div class="col-lg-3 col-md-6">
-                <div class="card-body text-black">
-                  <br>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-6">
-                <div class="card-body text-black">
-                  <br>
-                </div>
-              </div>
-            {% endif %}
             {% if chargingpoint.availability %}
               <div class="btn-group col-xs-1 center-block" role="group">
                   <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,7 +62,7 @@
                   <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                     
                     <form method="post" target="hidden-form">
-                      <button type="submit" formaction="../../api/stop_session/chargingpoint_{{chargingpoint.id}}" onClick="window.location.href=window.location.href">End session </button>
+                      <button type="submit" formaction="../../api/stop_session/chargingpoint_{{chargingpoint.id}}" onClick="window.parent.location.reload();window.close()">End session </button>
                     </form>
                     
                     <a class="dropdown-item" href="#">Send message </a>
