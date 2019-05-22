@@ -9,20 +9,15 @@
         <div class="card-header text-black">
        
           <h1 class="text-uppercase card-title">Laadpaal {{chargingpoint.id}}</h1>
-        
+        {% if chargingpoint.availability %}
           <div class="col-lg-3 col-md-6">
             <div class="card-body text-black">
-                <h6 class="text-uppercase">ID</h6>
-                <h1 class="display-1">{{chargingpoint.id}}</h1>
+                <h6 class="text-uppercase">Status</h6>
+                <h1 class="display-1">Charging...</h1>
             </div>
           </div>
         
-          <div class="col-lg-3 col-md-6">
-            <div class="card-body text-black">
-                <h6 class="text-uppercase">Price</h6>
-                <h1 class="display-1">{{chargingpoint.price}}</h1>
-            </div>
-          </div>
+        {% endif %}
           {% for session in sessions%}
             {% if session.chargingpoint_id == chargingpoint.id and session.endtime == None %}
             <div class="col-lg-3 col-md-6">
