@@ -50,3 +50,7 @@ hr {
 .navbar {
   border-radius: 0px;
 }
+
+table {
+  margin: 50px;
+}
