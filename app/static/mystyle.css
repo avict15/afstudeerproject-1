@@ -45,3 +45,6 @@ hr {
 .collapse.show {
   width:100%;
 }
+.navbar {
+  border-radius: 0px;
+}
