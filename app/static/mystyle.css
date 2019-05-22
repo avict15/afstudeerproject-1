@@ -43,14 +43,11 @@ hr {
   width:100%;
 }
 
-.table-responsive {
-  margin-left: 15px;
-}
 
 .navbar {
   border-radius: 0px;
 }
 
 table {
-  margin: 50px;
+  margin-left: 10px;
 }
