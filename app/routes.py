@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request, send_from_
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, SendMessageForm
 from app.models import User, Session, Chargingpoint, Message
 from datetime import datetime
 import os
@@ -46,8 +46,8 @@ def admin_dashboard():
     chargepoints = Chargingpoint.query.all()
     sessions = Session.query.filter_by(endtime = None)
     users = User.query.all()
-    return render_template('dashboard.html', title='Dashboard', chargingpoints=chargepoints, sessions=sessions, users=users)
-
+    form = SendMessageForm()
+    return render_template('dashboard.html', title='Dashboard', chargingpoints=chargepoints, sessions=sessions, users=users, form=form)
 
 @app.route('/admin/dashboard_table')
 @login_required
