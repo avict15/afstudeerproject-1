@@ -68,7 +68,7 @@
               </div>
               <div class="col-lg-3 col-md-6">
                 <div class="card-body text-black">
-                  <br>>
+                  <br>
                 </div>
               </div>
             {% endif %}
@@ -78,9 +78,11 @@
                     Dropdown
                   </button>
                   <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    {% if chargingpoint.availability}
                     <form method="post" target="hidden-form">
                       <button type="submit" formaction="../../api/stop_session/chargingpoint_{{chargingpoint.id}}">End session </button>
                     </form>
+                    {% endif %}
                     <a class="dropdown-item" href="#">Send message </a>
                   </div>
               </div>
