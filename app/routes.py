@@ -41,6 +41,7 @@ def delete_message(message_id):
        
     
 @app.route('/admin/dashboard')
+@login_required
 def admin_dashboard():
     chargepoints = Chargingpoint.query.all()
     sessions = Session.query.filter_by(endtime = None)
@@ -49,6 +50,7 @@ def admin_dashboard():
 
 
 @app.route('/admin/dashboard_table')
+@login_required
 def admin_dashboard_table():
     sessions = Session.query.order_by(Session.created.desc())
     users = User.query.all()

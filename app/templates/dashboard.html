@@ -3,78 +3,60 @@
 {% block content %}
 <div class="row">
 
-<div class="col-md-12">
-  <div class="col-lg-2 col-md-6">
-    <h1 class="text-uppercase card-title">Laadpaal</h1>
-  </div>
-  <div class="col-lg-3 col-md-6">
-    <h1 class="text-uppercase card-title">Status</h1>
-  </div>
-  <div class="col-lg-3 col-md-6">
-    <h1 class="text-uppercase card-title">User</h1>
-  </div>
-  <div class="col-lg-3 col-md-6">
-    <h1 class="text-uppercase card-title">Start Time</h1>
-  </div>
-  <div class="col-lg-3 col-md-6">
-    <br>  
-  </div>
-</div>
-
-{% for chargingpoint in chargingpoints%}
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header text-black">
-          <div class="col-lg-2 col-md-6">
-              <div class="card-body text-black">
-                  <h1 class="display-1">{{chargingpoint.id}}</h1>
-              </div>
-          </div>
-          {% if chargingpoint.availability %}
-            <div class="col-lg-3 col-md-6">
-              <div class="card-body text-black">
-                  <h1 class="display-1">Charging...</h1>
-              </div>
-            </div>
-            {% for session in sessions%}
-              {% if session.chargingpoint_id == chargingpoint.id and session.endtime == None %}
-                <div class="col-lg-3 col-md-6">
-                  <div class="card-body text-black">
-                    {% for user in users%}
-                    {% if user.id == session.user_id %}
-                    <h1 class="display-1">{{ user.name }}</h1>
-                    {% endif %}
-                    {% endfor %}
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                  <div class="card-body text-black">
-                    <h1 class="display-1">{{ session.created.strftime('%m-%d %H:%M:%S') }}</h1>
-                  </div>
-                </div>
-              {% endif %}
-            {% endfor %}
-            {% if chargingpoint.availability %}
-              <div class="btn-group col-xs-1 center-block" role="group">
-                  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                    
-                    <form method="post" target="hidden-form">
-                      <button type="submit" formaction="../../api/stop_session/chargingpoint_{{chargingpoint.id}}" onClick="window.parent.location.reload();window.close()">End session </button>
-                    </form>
-                    
-                    <a class="dropdown-item" href="#">Send message </a>
-                  </div>
-              </div>
+<div class="table-responsive" style="font-size:20px">         
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Laadpaal</th>
+        <th>Status</th>
+        <th>User</th>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th></th>
+      </tr>
+    </thead>
+    {% for chargingpoint in chargingpoints%}
+    <tbody id="chargingpoints">
+      <tr>
+        <td><h1 class="display-1">{{chargingpoint.id}}</h1></td>
+        {% if chargingpoint.availability %}
+          <td><h1 class="display-1">Charging...</h1></td>
+          {% for session in sessions%}
+            {% if session.chargingpoint_id == chargingpoint.id and session.endtime == None %}
+              {% for user in users%}
+                {% if user.id == session.user_id %}
+                  <td><h1 class="display-1">{{ user.name }}</h1></td>
+                  <td><h1 class="display-1">{{ session.created.strftime('%m-%d %H:%M:%S') }}</h1></td>
+                  <td>
+                    <div class="btn-group col-xs-1 center-block" role="group">
+                      <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        
+                        <form method="post" target="hidden-form">
+                          <button type="submit" formaction="../../api/stop_session/chargingpoint_{{chargingpoint.id}}" onClick="window.parent.location.reload();window.close()">End session </button>
+                        </form>
+                        
+                        <a class="dropdown-item" href="#">Send message </a>
+                      </div>
+                    </div>
+                  </td>
+                {% endif %}
+              {% endfor %}
             {% endif %}
-          {% endif %}
-            
-        </div>
-      </div>
-    </div>
-{% endfor %}
+          {% endfor %}
+        {% else %}
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        {% endif %}
+      </tr>
+    {% endfor %}  
+    </tbody>
+  </table>
+</div>
 </div>    
 <IFRAME style="display:none" name="hidden-form"></IFRAME>  
 {% endblock %}
