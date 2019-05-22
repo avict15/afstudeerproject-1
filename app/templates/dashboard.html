@@ -27,14 +27,13 @@
                   <td><h1 class="display-1">{{ session.created.strftime('%m-%d %H:%M:%S') }}</h1></td>
                   <td>
                     <br>
-                    
-                    <div class="btn-group d-flex justify-content-center align-self-center" role="group">
+                    <div class="btn-group d-flex justify-content-center" role="group">
                       <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Dropdown
                       </button>
                       <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                         <form method="post" target="hidden-form">
-                          <button type="submit" formaction="../../api/stop_session/chargingpoint_{{chargingpoint.id}}" onClick="window.parent.location.reload();window.close()">End session </button>
+                          <button formaction="../../api/stop_session/chargingpoint_{{chargingpoint.id}}" onClick="window.parent.location.reload();window.close()">End session </button>
                         </form>    
                         <a class="dropdown-item" href="#">Send message </a>
                       </div>
