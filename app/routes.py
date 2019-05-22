@@ -5,6 +5,7 @@ from app import app, db
 from app.forms import LoginForm, RegistrationForm, SendMessageForm
 from app.models import User, Session, Chargingpoint, Message
 from datetime import datetime
+import sys
 import os
 
 @app.route('/favicon.ico')
@@ -15,13 +16,21 @@ def favicon():
 def plus():
     return send_from_directory(os.path.join(app.root_path, 'static'),'plus.png', mimetype='image/vnd.microsoft.icon')
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET','POST'])
+@app.route('/index', methods=['GET','POST'])
 @login_required
 def index():
     user = User.query.filter_by(username = current_user.username).first_or_404()
     sessions = Session.query.filter_by(user_id = user.id).order_by(Session.created.desc())
     return render_template('index.html', title='Home', sessions=sessions, datetime=datetime)
+
+@app.route('/search/<string:name>')
+@login_required
+def search_results(name):
+    user = User.query.filter_by(username = name).first_or_404()
+    sessions = Session.query.filter_by(user_id = user.id).order_by(Session.created.desc())
+    return render_template('index.html', title=user.name, sessions=sessions, datetime=datetime)
+
 
 @app.route('/messages')
 @login_required
@@ -47,13 +56,15 @@ def admin_dashboard():
     sessions = Session.query.filter_by(endtime = None)
     users = User.query.all()
     form = SendMessageForm()
-    if form.validate_on_submit():
+    name = request.form.get('user', None)
+    if name is not None:
         user = User.query.filter_by(id = form.user.data).first_or_404()
+        print('test', file=sys.stderr)
         message = Message(recipient=user,body=form.text.data)
         db.session.add(message)
         db.session.commit()
         flash('You send a message')
-        return render_template('dashboard.html', title='Dashboard', chargingpoints=chargepoints, sessions=sessions, users=users, form=form)
+        return redirect(url_for('admin_dashboard'))
     return render_template('dashboard.html', title='Dashboard', chargingpoints=chargepoints, sessions=sessions, users=users, form=form)
 
 @app.route('/admin/dashboard_table')

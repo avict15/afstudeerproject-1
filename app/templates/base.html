@@ -8,6 +8,8 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="{{url_for('.static', filename='mystyle.css')}}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
 {% endblock %}
 {% block title %}
     {% if title %}{{ title }} - Afstudeeronderzoek{% endif %}
@@ -49,15 +51,27 @@
       </li>
       {% endif %}
     </ul>
-    
+    <div class="form-inline my-2 my-lg-0">
       {% if current_user.is_anonymous %}
-      <li class="nav navbar-nav navbar-right"><a class="nav-link" href="{{ url_for('login') }}"><h3>Login</h3></a></li>
+        <li class="nav navbar-nav navbar-right"><a class="nav-link" href="{{ url_for('login') }}"><h3>Login</h3></a></li>
       {% else %}
-      <li class="nav navbar-nav navbar-right"><a class="nav-link" href="{{ url_for('logout') }}"><h3>Logout</h3></a></li>
+        <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search">
+        <h2 class="text-white" style="margin-left: 20px; margin-right: 20px;">  {{ current_user.name }}        </h2>
+        <li class="nav navbar-nav navbar-right"><a class="nav-link" href="{{ url_for('logout') }}"><h3>Logout</h3></a></li>
       {% endif %}
-
+    </div>
+      
+    
   </div>
 </nav>
+<script>
+$(document).keyup(function (e) {
+    if ($(".search:focus") && (e.keyCode === 13)) {
+      var x = document.getElementById("search").value;      
+      window.location.href='/search/'+x;
+    }
+ });
+ </script>
 {% endblock %}
 
 
@@ -76,4 +90,6 @@
         {# application content needs to be provided in the app_content block #}
         {% block app_content %}{% endblock %}
     </div>
+    
 {% endblock %}
+
