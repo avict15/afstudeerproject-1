@@ -17,16 +17,16 @@
                 <h1 class="display-1"> {{chargingpoint.id}} </h1>
             </td>
             <td>
-                    <form onChange="this.form.submit()" action="../../api/unknown_usage/{{chargingpoint.id}}" method="post" target="hidden-form">
-                        <label class="switch">
-                            {% if chargingpoint.unknown_usage %}
-                                <input type="checkbox" onclick="this.form.submit();" checked>
-                            {% else %}
-                                <input type="checkbox" onclick="this.form.submit();">
-                            {% endif %}
-                            <span class="slider"></span>
-                        </label> 
-                    </form>   
+                <form onChange="this.form.submit()" action="../../api/unknown_usage/{{chargingpoint.id}}" method="post" target="hidden-form">
+                    <label class="switch">
+                        {% if chargingpoint.unknown_usage %}
+                            <input type="checkbox" onclick="this.form.submit();" checked>
+                        {% else %}
+                            <input type="checkbox" onclick="this.form.submit();">
+                        {% endif %}
+                        <span class="slider"></span>
+                    </label> 
+                </form>   
             </td>
         </tr>
     {% endfor %}
