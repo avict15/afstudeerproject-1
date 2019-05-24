@@ -94,17 +94,7 @@ def admin_dashboard_table():
 
 @app.route('/unknown_user', methods=['GET'])
 def unknown_user():
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('unknown_user.html', title='Unknown User', posts=posts)
+    return render_template('unknown_user.html', title='Unknown User')
 
 
 @app.route('/login', methods=['GET', 'POST'])

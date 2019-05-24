@@ -52,6 +52,14 @@ hr {
   border-radius: 0px;
 }
 
+#settings_table {
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  table-layout: auto;
+  text-align: center;
+}
+
 #dashboard_table {
   max-width: 95%;
   margin-left: auto;
@@ -136,6 +144,7 @@ hr {
 .clickable {
   cursor: pointer;
 }
+
 .switch input { 
   display:none;
 }

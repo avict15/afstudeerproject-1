@@ -7,7 +7,7 @@ class Chargingpoint(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     price = db.Column(db.Integer)
     availability = db.Column(db.Integer)
-
+    unknown_usage = db.Column(db.Boolean)
     def __repr__(self):
         return '<Chargingpoint {}>'.format(self.body)
 

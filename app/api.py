@@ -2,6 +2,7 @@ from app import app, db
 from flask import make_response, request, abort, jsonify,  redirect, url_for
 from app.models import User, Session, Chargingpoint, Message
 from datetime import datetime
+import sys
 
 @app.route('/api/create_session/chargingpoint_<int:key>/<string:licenseplate>', methods=["POST"])
 def create_session(key, licenseplate):
@@ -39,6 +40,18 @@ def create_session_unknown_user(key, licenseplate):
         db.session.commit()
         return str(chargingpoint.availability), 201
 
+
+@app.route('/api/unknown_usage/<int:key>', methods=["POST"])
+def unknown_usage(key):
+        chargingpoint = Chargingpoint.query.filter_by(id = key).first_or_404()
+        print(str(chargingpoint.unknown_usage), file=sys.stderr)
+        # chargingpoint = q.first_or_404()
+        if chargingpoint.unknown_usage:
+                chargingpoint.unknown_usage = False
+        else:
+                chargingpoint.unknown_usage = True
+        db.session.commit()
+        return str(chargingpoint.unknown_usage), 201
 
 @app.route('/api/setup', methods=["POST"])
 def setupdb():

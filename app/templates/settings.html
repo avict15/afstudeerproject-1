@@ -3,45 +3,30 @@
 {% block content %}
 <IFRAME style="display:none" name="hidden-form"></IFRAME>  
 <div style="font-size:20px">         
-  <table class="table" id="dashboard_table">
+  <table class="table" id="settings_table">
     <thead>
       <tr>
         <th>Laadpaal</th>
-        <th>Available for unknown users</th>
-        <th>User</th>
-        <th>Start Time</th>
-        <th></th>
+        <th>Guest mode</th>
       </tr>
     </thead>
     <tbody>
     {% for chargingpoint in chargingpoints%}
-    
         <tr>
             <td>
-                <h1 class="display-1" id="dashboard_laadpaal_value"> {{chargingpoint.id}} </h1>
+                <h1 class="display-1"> {{chargingpoint.id}} </h1>
             </td>
-
             <td>
-                <label class="switch">
-                    <input type="checkbox" id="slider_{{chargingpoint.id}}" onclick="slider_{{chargingpoint.id}}()">
-                    <span class="slider"></span>
-                </label>
-                <p id="text_{{chargingpoint.id}}" style="display:none">Checkbox is CHECKED!</p>
-                <script>
-                    function slider_{{chargingpoint.id}}() {
-                        // Get the checkbox
-                        var checkBox = document.getElementById("slider_{{chargingpoint.id}}");
-                        // Get the output text
-                        var text = document.getElementById("text_{{chargingpoint.id}}");
-                    
-                        // If the checkbox is checked, display the output text
-                        if (checkBox.checked == true){
-                        text.style.display = "block";
-                        } else {
-                        text.style.display = "none";
-                        }
-                    }
-                </script>
+                    <form onChange="this.form.submit()" action="../../api/unknown_usage/{{chargingpoint.id}}" method="post" target="hidden-form">
+                        <label class="switch">
+                            {% if chargingpoint.unknown_usage %}
+                                <input type="checkbox" onclick="this.form.submit();" checked>
+                            {% else %}
+                                <input type="checkbox" onclick="this.form.submit();">
+                            {% endif %}
+                            <span class="slider"></span>
+                        </label> 
+                    </form>   
             </td>
         </tr>
     {% endfor %}
