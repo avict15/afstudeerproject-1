@@ -46,7 +46,7 @@ def settings():
         db.session.add(message)
         db.session.commit()
         return redirect(url_for('settings'))
-    return render_template('dashboard.html', title='Dashboard', chargingpoints=chargepoints, sessions=sessions, users=users, form=form)
+    return render_template('settings.html', title='Settings', chargingpoints=chargepoints, sessions=sessions, users=users, form=form)
 
 
 
