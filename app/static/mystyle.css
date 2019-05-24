@@ -53,7 +53,10 @@ hr {
 }
 
 #dashboard_table {
-  max-width: 100%;
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  table-layout: auto;
 }
 
 #dashboard_laadpaal {
@@ -62,7 +65,68 @@ hr {
 }
 
 #dashboard_laadpaal_value {
+  width: 100px;
   text-align: center;
+}
+
+#dashboard_status {
+  width: 100px;
+  text-align: center;
+}
+
+#dashboard_status_value {
+  text-align: center;
+}
+
+#dashboard_user {
+  width: 100px;
+  text-align: center;
+}
+
+#dashboard_user_value {
+  text-align: center;
+}
+
+#dashboard_start_time {
+  width: 100px;
+  text-align: center;
+}
+
+#dashboard_start_time_value {
+  text-align: center;
+}
+
+#dashboard_actions {
+  width: 100px;
+  text-align: center;
+}
+
+#dashboard_actions_value {
+  text-align: center;
+}
+
+.sessions_table {
+  max-width: 95%;
+  table-layout: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sessions_table th,td {
+  text-align: center;
+  vertical-align: middle !important;
+}
+
+.index_table {
+  max-width: 95%;
+  table-layout: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.index_table th,td {
+  text-align: center;
+  vertical-align: middle !important;
 }
 
 .modal {

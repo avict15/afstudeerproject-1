@@ -7,34 +7,33 @@
     <thead>
       <tr>
         <th id="dashboard_laadpaal">Laadpaal</th>
-        <th>Status</th>
-        <th>User</th>
-        <th>Start Time</th>
-        <th></th>
+        <th id="dashboard_status">Status</th>
+        <th id="dashboard_user">User</th>
+        <th id="dashboard_start_time">Start Time</th>
+        <th id="dashboard_actions"></th>
       </tr>
     </thead>
     {% for chargingpoint in chargingpoints%}
     <tbody id="chargingpoints">
       <tr>
-        <td>
-          <h1 class="display-1" id="dashboard_laadpaal_value">{{chargingpoint.id}}</h1>
+        <td id="dashboard_laadpaal_value">
+          <h1>{{chargingpoint.id}}</h1>
         </td>
         {% if chargingpoint.availability %}
-          <td>
-            <h1 class="display-1">Charging...</h1>
+          <td id="dashboard_status_value">
+            <h1>Charging...</h1>
           </td>
           {% for session in sessions%}
             {% if session.chargingpoint_id == chargingpoint.id and session.endtime == None %}
               {% for user in users %}
                 {% if user.id == session.user_id %}
-                  <td>
-                    <h1 class="display-1">{{ user.name }}</h1>
+                  <td id="dashboard_user_value">
+                    <h1>{{ user.name }}</h1>
                   </td>
-                  <td>
-                    <h1 class="display-1">{{ session.created.strftime('%m-%d %H:%M:%S') }}</h1>
+                  <td id="dashboard_start_time_value">
+                    <h1>{{ session.created.strftime('%m-%d %H:%M:%S') }}</h1>
                   </td>
-                  <td>
-                    <br>
+                  <td id="dashboard_actions_value">
                     <div class="btn-group d-flex justify-content-center" role="group">
                       <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Menu
