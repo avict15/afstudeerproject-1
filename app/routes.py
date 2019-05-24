@@ -94,7 +94,8 @@ def admin_dashboard_table():
 
 @app.route('/unknown_user', methods=['GET'])
 def unknown_user():
-    return render_template('unknown_user.html', title='Unknown User')
+    chargepoints = Chargingpoint.query.all()
+    return render_template('unknown_user.html', title='Unknown User', chargepoints=chargepoints)
 
 
 @app.route('/login', methods=['GET', 'POST'])

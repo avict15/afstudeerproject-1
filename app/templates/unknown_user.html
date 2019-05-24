@@ -1,14 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
+<IFRAME style="display:none" name="hidden-form"></IFRAME> 
 <div class=container>
     <h1>Hi, Stranger!</h1>
     <h2>Please pay here for your electrical usage </h2>
-    
+    <br>
+    <br>
+    <h1>Please select your chargepoint</h1>
 
-    <button>
-          <img src=https://inbetweentarot.com/wp-content/uploads/2018/03/paypal.png>
-        </button>
-</div>
+    <form onChange="this.form.submit()" action="../../api/authorize_session_unknown_user/" method="post" target="hidden-form">
+      <div class="btn-group btn-group-lg" role="group" aria-label="First group">
+          {% for chargepoint in chargepoints %}
+          <button formaction="../../api/authorize_session_unknown_user/{{chargepoint.id}}" type="submit" id="button" class="btn btn-secondary" value="submit">{{chargepoint.id}}</button>
+          {% endfor %}
+        </div>
+    </form>   
    
+        
+    <br>
+      <button onClick="myFuction()">
+          <img src=https://inbetweentarot.com/wp-content/uploads/2018/03/paypal.png>
+      </button>
+</div>
+  
+<script>
+  function myFuction()
+  {
+    var x = document.getElementById("button").value;
+    alert(x);
+  }
+</script>
 {% endblock %}

@@ -31,7 +31,7 @@ def authorize_session(message_id):
                 abort(415)
         chargingpoint.availability=1
         user = User.query.filter_by(id = message.recipient_id).first_or_404()
-        session = Session(user_id=user.id, chargingpoint_id=chargingpoint.id, status="Charging")
+        session = Session(user_id=user.id, chargingpoint_id=chargingpoint.id, status="Charging...")
         db.session.add(session)
         db.session.commit()
         Message.query.filter_by(id=message_id).delete()
@@ -41,7 +41,7 @@ def authorize_session(message_id):
 def create_session_unknown_user(key, licenseplate):
         chargingpoint = Chargingpoint.query.filter_by(id = key).first_or_404()
         # chargingpoint = q.first_or_404()
-        if chargingpoint.availability is 1 and chargingpoint.unknown_usage is False:
+        if chargingpoint.unknown_usage is False:
                 abort(415)
         chargingpoint.availability=1
         if db.session.query(User.name).filter_by(licenseplate = licenseplate).scalar() is None:
@@ -50,7 +50,7 @@ def create_session_unknown_user(key, licenseplate):
                 db.session.commit()
         else:
                 user = User.query.filter_by(licenseplate = licenseplate).first_or_404()
-        session = Session(user_id=user.id, chargingpoint_id=key, status="Waiting for payment")
+        session = Session(user_id=user.id, chargingpoint_id=key, status="Waiting for payment.")
         db.session.add(session)
         db.session.commit()
         return "unknown user is charging", 201
@@ -81,6 +81,24 @@ def stop_session(key):
                 else:
                         abort(415)     
         return "shouldnt be here", 404     
+
+
+
+@app.route('/api/authorize_session_unknown_user/<int:key>', methods=["POST"])
+def authorize_session_unknown_user(key):
+        chargingpoint = Chargingpoint.query.filter_by(id = key).first_or_404()
+        if chargingpoint.availability is 1:
+                session = Session.query.filter_by(chargingpoint_id = key).filter_by(endtime = None).first_or_404()
+                if "payment" in session.status:
+                        session.status="Charging..."
+                        db.session.commit()
+                        return redirect(url_for('index')) 
+                else:
+                        abort(415)
+        else:
+                abort(415)     
+        return "shouldnt be here", 404     
+
 
 @app.errorhandler(404)
 def not_found(error):
