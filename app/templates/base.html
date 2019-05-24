@@ -67,8 +67,11 @@
 <script>
 $(document).keyup(function (e) {
     if ($(".search:focus") && (e.keyCode === 13)) {
-      var x = document.getElementById("search").value;      
-      window.location.href='/search/'+x;
+      var x = document.getElementById("search").value;   
+      if(x)
+      {   
+        window.location.href='/search/'+x;
+      }
     }
  });
  </script>
