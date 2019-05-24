@@ -16,8 +16,8 @@
     {% for chargingpoint in chargingpoints%}
     <tbody id="chargingpoints">
       <tr>
-        <td>
-          <h1 class="display-1" id="dashboard_laadpaal_value">{{chargingpoint.id}}</h1>
+        <td id="dashboard_laadpaal_value">
+          <h1 class="display-1" >{{chargingpoint.id}}</h1>
         </td>
         {% if chargingpoint.availability %}
           <td>
