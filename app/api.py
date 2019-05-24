@@ -76,6 +76,7 @@ def stop_session(key):
                         chargingpoint.availability=0
                         session.endtime = datetime.now()
                         session.totalprice = session.endtime - session.endtime 
+                        session.status="Finished"
                         db.session.commit()
                         return str(chargingpoint.availability), 201
                 else:
