@@ -9,8 +9,8 @@
             <div class="card card-body">
                 <h1>
                     <span>{{ post.body }}</span>
-                    <h4>Session : {{ post.session_id}}</h4>
                     {% if post.chargingpoint_id %}
+                    <h4>Session : {{ post.session_id}}</h4>
                     <h4>Chargingstation : {{ post.chargingpoint_id }}</h4>
                     <h4>{{ post.timestamp.strftime('%m-%d %H:%M:%S') }}</h4>
                     <button type="button" onclick="window.location.href='{{ url_for('authorize_session', message_id=post.id) }}';">{{ ('Charge!') }}</button>

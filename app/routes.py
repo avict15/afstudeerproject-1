@@ -31,6 +31,24 @@ def search_results(name):
     sessions = Session.query.filter_by(user_id = user.id).order_by(Session.created.desc())
     return render_template('index.html', title=user.name, sessions=sessions, datetime=datetime)
 
+@app.route('/settings')
+@login_required
+def settings():
+    chargepoints = Chargingpoint.query.all()
+    sessions = Session.query.filter_by(endtime = None)
+    users = User.query.all()
+    form = SendMessageForm()
+    name = request.form.get('user', None)
+    if name is not None:
+        user = User.query.filter_by(id = form.user.data).first_or_404()
+        print('test', file=sys.stderr)
+        message = Message(recipient=user,body=form.text.data)
+        db.session.add(message)
+        db.session.commit()
+        return redirect(url_for('settings'))
+    return render_template('dashboard.html', title='Dashboard', chargingpoints=chargepoints, sessions=sessions, users=users, form=form)
+
+
 
 @app.route('/messages')
 @login_required
@@ -63,7 +81,6 @@ def admin_dashboard():
         message = Message(recipient=user,body=form.text.data)
         db.session.add(message)
         db.session.commit()
-        flash('You send a message')
         return redirect(url_for('admin_dashboard'))
     return render_template('dashboard.html', title='Dashboard', chargingpoints=chargepoints, sessions=sessions, users=users, form=form)
 
