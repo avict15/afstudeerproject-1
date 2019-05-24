@@ -40,9 +40,9 @@
                       </button>
                       <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                         <form method="post" target="hidden-form">
-                          <button formaction="../../api/stop_session/chargingpoint_{{chargingpoint.id}}" onClick="window.parent.location.reload();window.close()">End session </button>
+                          <button class="dropdown-item" formaction="../../api/stop_session/chargingpoint_{{chargingpoint.id}}" onClick="window.parent.location.reload();window.close()">End session </button>
                         </form>   
-                        <button type="button" data-toggle="modal" data-target="#{{user.id}}">Send message</button>
+                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#{{user.id}}">Send message</button>
                         
                   </td>
                 {% endif %}
