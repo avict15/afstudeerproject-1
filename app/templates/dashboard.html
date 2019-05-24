@@ -20,11 +20,13 @@
           <h1>{{chargingpoint.id}}</h1>
         </td>
         {% if chargingpoint.availability %}
-          <td id="dashboard_status_value">
-            <h1>Charging...</h1>
-          </td>
           {% for session in sessions%}
-            {% if session.chargingpoint_id == chargingpoint.id and session.endtime == None %}
+          {% if session.chargingpoint_id == chargingpoint.id and session.endtime == None %}
+          <td id="dashboard_status_value">
+            <h1> {{session.status}} </h1>
+          </td>
+          
+            
               {% for user in users %}
                 {% if user.id == session.user_id %}
                   <td id="dashboard_user_value">

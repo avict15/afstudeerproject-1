@@ -15,7 +15,7 @@ class Session(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     created = db.Column(db.DateTime, default=datetime.now)
     endtime = db.Column(db.DateTime)
-    status = db.Column(db.String(120))
+    status = db.Column(db.String(128))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     chargingpoint_id = db.Column(db.Integer, db.ForeignKey('chargingpoint.id'))
 

@@ -31,7 +31,7 @@ def authorize_session(message_id):
                 abort(415)
         chargingpoint.availability=1
         user = User.query.filter_by(id = message.recipient_id).first_or_404()
-        session = Session(user_id=user.id, chargingpoint_id=chargingpoint.id)
+        session = Session(user_id=user.id, chargingpoint_id=chargingpoint.id, status="Charging")
         db.session.add(session)
         db.session.commit()
         Message.query.filter_by(id=message_id).delete()
@@ -50,7 +50,7 @@ def create_session_unknown_user(key, licenseplate):
                 db.session.commit()
         else:
                 user = User.query.filter_by(licenseplate = licenseplate).first_or_404()
-        session = Session(user_id=user.id, chargingpoint_id=key)
+        session = Session(user_id=user.id, chargingpoint_id=key, status="Waiting for payment")
         db.session.add(session)
         db.session.commit()
         return "unknown user is charging", 201
