@@ -6,7 +6,7 @@
   <table class="table" id="dashboard_table">
     <thead>
       <tr>
-        <th>Laadpaal</th>
+        <th id="dashboard_laadpaal">Laadpaal</th>
         <th>Status</th>
         <th>User</th>
         <th>Start Time</th>
@@ -17,7 +17,7 @@
     <tbody id="chargingpoints">
       <tr>
         <td>
-          <h1 class="display-1">{{chargingpoint.id}}</h1>
+          <h1 class="display-1" id="dashboard_laadpaal_value">{{chargingpoint.id}}</h1>
         </td>
         {% if chargingpoint.availability %}
           <td>
