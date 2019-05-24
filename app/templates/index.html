@@ -2,7 +2,7 @@
 
 {% block content %}  
 <div class="table-responsive" style="font-size:20px">         
-  <table class="table">
+  <table class="index_table table">
     <thead>
       <tr>
         <th>ID</th>
@@ -12,8 +12,8 @@
         <th>Price</th>
       </tr>
     </thead>
+    <tbody id="index_table">
     {% for session in sessions%}
-     <tbody id="myTable">
       <tr>
         <td>{{session.id}}</td>
         <td>{{session.chargingpoint_id}}</td>
