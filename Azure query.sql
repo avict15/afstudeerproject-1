@@ -3,6 +3,7 @@ CREATE TABLE [chargingpoint] (
 	[id]	INTEGER NOT NULL,
 	[price]	INTEGER,
 	[availability]	INTEGER,
+	[unknown_user] BOOLEAN,
 	PRIMARY KEY([id])
 );
 INSERT INTO [chargingpoint] VALUES (1, 1,0);
@@ -25,6 +26,7 @@ CREATE TABLE [session] (
 	[endtime]	datetime,
 	[user_id]	INTEGER,
 	[chargingpoint_id]	INTEGER,
+	[status] VARCHAR (120),
 	FOREIGN KEY([chargingpoint_id]) REFERENCES [chargingpoint]([id]),
 	PRIMARY KEY([id]),
 	FOREIGN KEY([user_id]) REFERENCES [user]([id])
