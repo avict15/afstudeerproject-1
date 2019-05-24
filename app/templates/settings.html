@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+<IFRAME style="display:none" name="hidden-form"></IFRAME>  
+<div style="font-size:20px">         
+  <table class="table" id="dashboard_table">
+    <thead>
+      <tr>
+        <th>Laadpaal</th>
+        <th>Status</th>
+        <th>User</th>
+        <th>Start Time</th>
+        <th></th>
+      </tr>
+    </thead>
+    {% for chargingpoint in chargingpoints%}
+    <tbody id="chargingpoints">
+      <tr>
+        <td>
+          <h1 class="display-1">{{chargingpoint.id}}</h1>
+        </td>
+        {% if chargingpoint.availability %}
+          <td>
+            <h1 class="display-1">Charging...</h1>
+          </td>
+          {% for session in sessions%}
+            {% if session.chargingpoint_id == chargingpoint.id and session.endtime == None %}
+              {% for user in users %}
+                {% if user.id == session.user_id %}
+                  <td>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                      </label>
+                  </td>
+                  <td>
+                    <h1 class="display-1">{{ session.created.strftime('%m-%d %H:%M:%S') }}</h1>
+                  </td>
+                  <td>
+                    <br>
+                    <div class="btn-group d-flex justify-content-center" role="group">
+                      <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Menu
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <form method="post" target="hidden-form">
+                          <button formaction="../../api/stop_session/chargingpoint_{{chargingpoint.id}}" onClick="window.parent.location.reload();window.close()">End session </button>
+                        </form>   
+                        <button type="button" data-toggle="modal" data-target="#{{user.id}}">Send message</button>
+                        
+                  </td>
+                {% endif %}
+              {% endfor %}
+              <div class="modal fade" id="{{session.user_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Send message</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="formwrapper">
+                        <form method="post">
+                          <div style="display:none">
+                            {{ form.user(value=session.user_id)}}
+                          </div>
+                          {{form.text}}
+                          {{form.submit}}
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          {% for i in range(0,4) %}
+            <td></td>
+          {% endfor %}
+        {% endif %}
+      </tr>
+    {% endfor %}  
+    </tbody>
+  </table>
+</div>
+
+
+
+
+{% endblock %}
