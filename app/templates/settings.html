@@ -28,7 +28,10 @@
               {% for user in users %}
                 {% if user.id == session.user_id %}
                   <td>
-                    <input class="d-flex justify-content-center" type="checkbox" checked data-toggle="toggle">
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
                   </td>
                   <td>
                     <h1 class="display-1">{{ session.created.strftime('%m-%d %H:%M:%S') }}</h1>
