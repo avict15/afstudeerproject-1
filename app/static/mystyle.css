@@ -52,8 +52,17 @@ hr {
   border-radius: 0px;
 }
 
-table {
-  margin-left: 10px;
+#dashboard_table {
+  max-width: 100%;
+}
+
+#dashboard_laadpaal {
+  width: 100px;
+  text-align: center;
+}
+
+#dashboard_laadpaal_value {
+  text-align: center;
 }
 
 .modal {
