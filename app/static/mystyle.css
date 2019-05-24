@@ -173,10 +173,10 @@ hr {
   overflow:hidden;
    transition:.4s;
 }
-.slider:before {
+.slider::before {
   position:absolute;
   content:"";
-  width:100%;
+  width:50%;
   height:100%;
   background:#777;
   border-radius:30px;
@@ -184,9 +184,14 @@ hr {
   transition:.4s;
 }
 
+.slider::after {
+  width: 50%;
+}
+
 input:checked + .slider:before {
-  transform:translateX(30px);
+  transform:translateX(5px);
   background:limeGreen;
+  width: 50%;
 }
 input:checked + .slider {
   box-shadow:0 0 0 2px limeGreen,0 0 2px limeGreen;
