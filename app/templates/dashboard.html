@@ -87,7 +87,11 @@
   </table>
 </div>
 
-
-
+<script type="text/javascript">
+  $("table tr").hide();
+  $("table tr").each(function(index){
+    $(this).delay(index*200).show(100);
+  });
+</script>
 
 {% endblock %}
