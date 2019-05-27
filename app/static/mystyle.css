@@ -21,12 +21,13 @@
   margin-right:0px;
 }
 body {
-  background-color: #eee;
-  color:#444;
+  background-image:  url('/background.png');
+  /* background-color: #eee; */
+  color:white;
 }
 
 .fa {
-  color:#666;
+  color:white;
 }
 
 hr {
@@ -55,6 +56,10 @@ hr {
 .navbar {
   border-radius: 0px;
 }
+
+h1, h2, h3, h4, h5, h6, p {
+  color: white;
+ }
 
 #settings_table {
   max-width: 95%;
@@ -232,7 +237,7 @@ body {
   min-height: 100%;
   width: 100%;
   z-index: 1;
-  color: #000;
+  color: white;
   text-transform: uppercase;
   display: flex;
   align-items: center;

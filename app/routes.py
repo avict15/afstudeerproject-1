@@ -12,6 +12,10 @@ import os
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+@app.route('/background.png')
+def background():
+    return send_from_directory(os.path.join(app.root_path, 'static'),'background.png', mimetype='image/vnd.microsoft.icon')
+
 @app.route('/plus.png')
 def plus():
     return send_from_directory(os.path.join(app.root_path, 'static'),'plus.png', mimetype='image/vnd.microsoft.icon')
