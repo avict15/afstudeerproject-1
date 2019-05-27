@@ -6,17 +6,20 @@
     
     <div class="row">
         <div class="col-sd">
-            <div class="card card-body">
+            <div class="messages card card-body">
+                    <div class="text-center"> 
                 <h1>
                     <span>{{ post.body }}</span>
+                    <br>
                     {% if post.chargingpoint_id %}
-                    <h4>Session : {{ post.session_id}}</h4>
                     <h4>Chargingstation : {{ post.chargingpoint_id }}</h4>
-                    <h4>{{ post.timestamp.strftime('%m-%d %H:%M:%S') }}</h4>
+                    <h4>{{ post.timestamp.strftime('%d-%m %H:%M:%S') }}</h4>
                     <button type="button" onclick="window.location.href='{{ url_for('authorize_session', message_id=post.id) }}';">{{ ('Charge!') }}</button>
                     {% endif %}
+                    <br>
                     <button type="button" onclick="window.location.href='{{ url_for('delete_message', message_id=post.id) }}';">{{ ('Delete') }}</button>
                 </h1>
+                </div>
             </div>
         </div>
     </div>

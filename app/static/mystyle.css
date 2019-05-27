@@ -65,6 +65,23 @@ h1, h2, h3, h4, h5, h6, p, td, tr{
    color: black;
  }
 
+ .messages, .messages span, .messages h4, .messages button{
+   color: black;
+ }
+ .messages{
+   margin-bottom: 15px;
+   width: 500px;
+ }
+ .messages button{
+   width:100%;
+   margin-bottom:8px;
+ }
+
+ .btn-group>.btn:first-child {
+  width:100px;
+  font-size: 0.7em;
+ }
+
 #settings_table {
   max-width: 95%;
   margin-left: auto;
