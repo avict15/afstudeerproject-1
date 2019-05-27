@@ -25,9 +25,9 @@
         <td>{{session.created}}</td>
        {% if session.endtime is not none %}
         <td>{{(session.endtime - session.created)}} </td>
-        <td>{{(((session.endtime - session.created) / 60) * 0.20)}}</td>
+        <td>{{(((session.endtime - session.created).total_seconds() / 60) * 0.20)}}</td>
         {% else %}
-        <td colspan="2"> currently charging at chargingpoint {{session.chargingpoint_id}}</td>
+        <td colspan="2"> Currently charging at chargingpoint {{session.chargingpoint_id}}</td>
         {% endif %}
       </tr>
       {% endfor %}
