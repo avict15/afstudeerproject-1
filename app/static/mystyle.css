@@ -57,8 +57,12 @@ hr {
   border-radius: 0px;
 }
 
-h1, h2, h3, h4, h5, h6, p, td, tr {
+h1, h2, h3, h4, h5, h6, p, td, tr{
   color: #CCC3C1;
+ }
+ 
+ .modal-content h5, .modal-content textarea, .modal-content input {
+   color: black;
  }
 
 #settings_table {
