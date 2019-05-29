@@ -35,6 +35,11 @@ def search_results(name):
     sessions = Session.query.filter_by(user_id = user.id).order_by(Session.created.desc())
     return render_template('index.html', title=user.name, sessions=sessions, datetime=datetime)
 
+@app.route('/gauge')
+@login_required
+def gauge():
+    return render_template('gauge.html')
+
 @app.route('/settings')
 @login_required
 def settings():
