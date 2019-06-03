@@ -10,7 +10,8 @@
     <h1>Please select your chargepoint</h1>
 
     <form onChange="this.form.submit()" action="../../api/authorize_session_unknown_user/" method="post" target="hidden-form">
-      <input name="radio" type="radio" value="I agree to the terms of service">
+      <input name="radio" type="radio"> I agree to the terms of service
+      <br>
       <div class="btn-group btn-group-lg" role="group" aria-label="First group">
           {% for chargepoint in chargepoints %}
           <button formaction="../../api/authorize_session_unknown_user/{{chargepoint.id}}" type="submit" id="button" class="btn btn-secondary" value="submit">{{chargepoint.id}}</button>
