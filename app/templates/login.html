@@ -46,31 +46,27 @@ $(document).ready(function(){
   h = canvasBody.height = window.innerHeight;
 }
 
-if (typeof window.orientation !== 'undefined')
-{
-  const opts = { 
-    particleColor: "rgb(200,200,200)",
-    lineColor: "rgb(200,200,200)",
-    particleAmount: 10,
-    defaultSpeed: 1,
-    variantSpeed: 1,
-    defaultRadius: 2,
-    variantRadius: 2,
-    linkRadius: 200,
-  };
-}
-else{
-  const opts = { 
-    particleColor: "rgb(200,200,200)",
-    lineColor: "rgb(200,200,200)",
-    particleAmount: 30,
-    defaultSpeed: 1,
-    variantSpeed: 2,
-    defaultRadius: 2,
-    variantRadius: 4,
-    linkRadius: 400,
-  };
-}
+const opts = { 
+  particleColor: "rgb(200,200,200)",
+  lineColor: "rgb(200,200,200)",
+  particleAmount: 30,
+  defaultSpeed: 1,
+  variantSpeed: 2,
+  defaultRadius: 2,
+  variantRadius: 4,
+  linkRadius: 400,
+};
+const optsMobile = { 
+  particleColor: "rgb(200,200,200)",
+  lineColor: "rgb(200,200,200)",
+  particleAmount: 10,
+  defaultSpeed: 1,
+  variantSpeed: 1,
+  defaultRadius: 2,
+  variantRadius: 2,
+  linkRadius: 200,
+};
+
 window.addEventListener("resize", function(){
   deBouncer();
 });
@@ -89,7 +85,7 @@ let checkDistance = function(x1, y1, x2, y2){
 let linkPoints = function(point1, hubs){ 
   for (let i = 0; i < hubs.length; i++) {
 	let distance = checkDistance(point1.x, point1.y, hubs[i].x, hubs[i].y);
-	let opacity = 1 - distance / opts.linkRadius;
+  let opacity = 1 - distance / opts.linkRadius;
 	if (opacity > 0) { 
 	  drawArea.lineWidth = 0.5;
 	  drawArea.strokeStyle = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${opacity})`;
@@ -105,10 +101,19 @@ let linkPoints = function(point1, hubs){
 Particle = function(xPos, yPos){ 
   this.x = Math.random() * w; 
   this.y = Math.random() * h;
-  this.speed = opts.defaultSpeed + Math.random() * opts.variantSpeed; 
-  this.directionAngle = Math.floor(Math.random() * 360); 
-  this.color = opts.particleColor;
-  this.radius = opts.defaultRadius + Math.random() * opts. variantRadius; 
+  if (typeof window.orientation !== 'undefined')
+  {
+    this.speed = optsMobile.defaultSpeed + Math.random() * optsMobile.variantSpeed; 
+    this.directionAngle = Math.floor(Math.random() * 360); 
+    this.color = optsMobile.particleColor;
+    this.radius = optsMobile.defaultRadius + Math.random() * optsMobile.variantRadius; 
+  }
+  else{
+    this.speed = opts.defaultSpeed + Math.random() * opts.variantSpeed; 
+    this.directionAngle = Math.floor(Math.random() * 360); 
+    this.color = opts.particleColor;
+    this.radius = opts.defaultRadius + Math.random() * opts.variantRadius; 
+  }
   this.vector = {
 	x: Math.cos(this.directionAngle) * this.speed,
 	y: Math.sin(this.directionAngle) * this.speed
@@ -142,10 +147,19 @@ Particle = function(xPos, yPos){
 function setup(){ 
   particles = [];
   resizeReset();
-  for (let i = 0; i < opts.particleAmount; i++){
-	particles.push( new Particle() );
+  if (typeof window.orientation !== 'undefined')
+  {
+    for (let i = 0; i < optsMobile.particleAmount; i++){
+    particles.push( new Particle() );
+    }
+    window.requestAnimationFrame(loop);
   }
-  window.requestAnimationFrame(loop);
+  else{
+    for (let i = 0; i < opts.particleAmount; i++){
+    particles.push( new Particle() );
+    }
+    window.requestAnimationFrame(loop);
+  }
 }
 
 function loop(){ 
@@ -162,7 +176,6 @@ function loop(){
 
 const canvasBody = document.getElementById("canvas"),
 drawArea = canvasBody.getContext("2d");
-let delay = 400, tid,
 rgb = opts.lineColor.match(/\d+/g);
 resizeReset();
 setup();
