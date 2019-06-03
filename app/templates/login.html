@@ -46,17 +46,31 @@ $(document).ready(function(){
   h = canvasBody.height = window.innerHeight;
 }
 
-const opts = { 
-  particleColor: "rgb(200,200,200)",
-  lineColor: "rgb(200,200,200)",
-  particleAmount: 30,
-  defaultSpeed: 1,
-  variantSpeed: 2,
-  defaultRadius: 2,
-  variantRadius: 4,
-  linkRadius: 400,
-};
-
+if (typeof window.orientation !== 'undefined')
+{
+  const opts = { 
+    particleColor: "rgb(200,200,200)",
+    lineColor: "rgb(200,200,200)",
+    particleAmount: 10,
+    defaultSpeed: 1,
+    variantSpeed: 1,
+    defaultRadius: 2,
+    variantRadius: 2,
+    linkRadius: 200,
+  };
+}
+else{
+  const opts = { 
+    particleColor: "rgb(200,200,200)",
+    lineColor: "rgb(200,200,200)",
+    particleAmount: 30,
+    defaultSpeed: 1,
+    variantSpeed: 2,
+    defaultRadius: 2,
+    variantRadius: 4,
+    linkRadius: 400,
+  };
+}
 window.addEventListener("resize", function(){
   deBouncer();
 });
