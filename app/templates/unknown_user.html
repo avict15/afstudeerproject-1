@@ -10,7 +10,7 @@
     <h1>Please select your chargepoint</h1>
 
     <form class="myform" onChange="this.form.submit()" action="../../api/authorize_session_unknown_user/" method="post" target="hidden-form" onsubmit="return validateForm();">
-      <h3><input id="radio" type="radio" onchange="this.form.submit()"> I agree to the terms of service</h3>
+      <h3><input name="re" id="radio" type="radio" onchange="this.form.submit()"> I agree to the terms of service</h3>
       <br>
       <div class="btn-group btn-group-lg" role="group" aria-label="First group">
           {% for chargepoint in chargepoints %}
@@ -31,6 +31,20 @@ function validateForm()
         return false;
     }
   return true;
+}
+
+var allRadios = document.getElementsByName('re');
+var booRadio;
+var x = 0;
+for(x = 0; x < allRadios.length; x++){
+  allRadios[x].onclick = function() {
+    if(booRadio == this){
+      this.checked = false;
+      booRadio = null;
+    } else {
+      booRadio = this;
+    }
+  };
 }
 </script>
 {% endblock %}
