@@ -18,7 +18,7 @@ class RegistrationForm(FlaskForm):
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     licenseplate = StringField('License plate', validators=[DataRequired()])
-    remember_me = BooleanField('I agree to the terms of service')
+    remember_me = BooleanField('I agree to the terms of service', validators=[DataRequired()])
     submit = SubmitField('Register')
 
     def validate_username(self, username):
