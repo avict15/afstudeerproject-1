@@ -9,8 +9,8 @@
     <br>
     <h1>Please select your chargepoint</h1>
 
-    <form onChange="this.form.submit()" action="../../api/authorize_session_unknown_user/" method="post" target="hidden-form">
-      <input name="radio" type="radio"> I agree to the terms of service
+    <form class="myform" onChange="this.form.submit()" action="../../api/authorize_session_unknown_user/" method="post" target="hidden-form" onsubmit="return validateForm();">
+      <h3><input id="radio" type="radio" onchange="this.form.submit()"> I agree to the terms of service</h3>
       <br>
       <div class="btn-group btn-group-lg" role="group" aria-label="First group">
           {% for chargepoint in chargepoints %}
@@ -20,5 +20,17 @@
     </form>       
     <br>
 </div>
-  
+<script>
+function validateForm()
+{
+ 
+    // Validate Title
+    var title = document.getElementById("radio").checked;
+    if (!title) {
+        alert("Please agree with the terms of service");
+        return false;
+    }
+  return true;
+}
+</script>
 {% endblock %}
