@@ -7,7 +7,6 @@ from app.models import User
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('I agree to the terms of service')
     submit = SubmitField('Sign In')
 
 
@@ -19,6 +18,7 @@ class RegistrationForm(FlaskForm):
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     licenseplate = StringField('License plate', validators=[DataRequired()])
+    remember_me = BooleanField('I agree to the terms of service')
     submit = SubmitField('Register')
 
     def validate_username(self, username):
