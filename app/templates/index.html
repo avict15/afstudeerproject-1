@@ -1,6 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}  
+<div class="col-lg-3 col-md-6">  
+		<div class="card-light text-white">    
+				<div class="card-body">    
+						<div class="rotate">     
+									<i class="fa fa-clock fa-5x" style="right:25px;"></i> 
+						</div>    
+						<h4 class="text-uppercase">Total time</h4>  
+						<div class="vertical-center">
+								<div class="container-fluid text-center">
+										<div class="justify-content-center">
+										<h1 id="centertext"> {{time}}</h1>
+										</div>
+								</div>
+						</div>
+				</div>   
+	</div>   
+</div>   
+<div class="col-lg-3 col-md-6">  
+		<div class="card-light text-white">    
+			 <div class="card-body">    
+						<div class="rotate">     
+								<i class="fas fa-euro-sign fa-7x" style="bottom:-9px; right:30px;"></i>
+						</div>    
+						<h4 class="text-uppercase">Total price</h4>  
+						<div class="vertical-center">
+								<div class="container-fluid text-center">
+										<div class="justify-content-center">
+										<h1 id="centertext" > {{price|round}}</h1>
+										</div>
+								</div>
+						</div>
+				</div>   
+	</div>   
+</div>  
 <div class="table-responsive" style="font-size:20px">         
   <table class="index_table table">
     <thead>
@@ -25,7 +59,7 @@
         <td>{{session.created.strftime(('%d-%m-%y %H:%M:%S'))}}</td>
        {% if session.endtime is not none %}
         <td>{{(session.endtime - session.created)}} </td>
-        <td>{{(((session.endtime - session.created).total_seconds() / 60) * 0.20)|round}}</td>
+        <td>{{(((session.endtime - session.created).total_seconds() / 3600) * 1)|round}}</td>
         {% else %}
         <td colspan="2"> Currently charging at chargingpoint {{session.chargingpoint_id}}</td>
         {% endif %}

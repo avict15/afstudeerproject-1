@@ -283,3 +283,34 @@ body {
   display: none;
   margin-top: 25%;
 }
+#centertext{
+  margin-top:13%;
+}
+.card-body{
+  height:200px;
+}
+.card-body .rotate{
+  z-index:8;
+  float:right;
+  height:100%;
+}
+.card-body .rotate i {
+  color: rgba(0,0,0,0.2);
+  position: absolute;
+  left: 0;
+  left: auto;
+  right: 10px;
+  bottom: 10px;
+  display: block;
+  -webkit-transform: rotate(-44deg);
+  -moz-transform: rotate(-44deg);
+  -o-transform: rotate(-44deg);
+  -ms-transform: rotate(-44deg);
+  transform: rotate(-44deg);
+}
+
+.card-light
+{
+  border: 1px solid white;
+  border-radius: 10px;
+}

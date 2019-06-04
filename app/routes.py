@@ -11,7 +11,7 @@ from werkzeug.urls import url_parse
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, SendMessageForm
 from app.models import User, Session, Chargingpoint, Message
-from datetime import datetime
+from datetime import datetime,timedelta
 import sys
 import os
 
@@ -33,7 +33,15 @@ def plus():
 def index():
     user = User.query.filter_by(username = current_user.username).first_or_404()
     sessions = Session.query.filter_by(user_id = user.id).order_by(Session.created.desc())
-    return render_template('index.html', title='Home', sessions=sessions, datetime=datetime)
+    chargepoints = Chargingpoint.query.all()
+    timeUsage = timedelta(0)
+    totalprice = 0
+    for session in sessions:
+        timeUsage += session.endtime - session.created
+        for chargepoint in chargepoints:
+            if chargepoint.id is session.chargingpoint_id:
+                totalprice += ((session.endtime - session.created).seconds / 3600 ) * chargepoint.price
+    return render_template('index.html', title='Home', sessions=sessions, datetime=datetime, time=timeUsage, price=totalprice)
 
 @app.route('/search/<string:name>')
 @login_required
@@ -41,11 +49,6 @@ def search_results(name):
     user = User.query.filter_by(username = name).first_or_404()
     sessions = Session.query.filter_by(user_id = user.id).order_by(Session.created.desc())
     return render_template('index.html', title=user.name, sessions=sessions, datetime=datetime)
-
-@app.route('/gauge')
-@login_required
-def gauge():
-    return render_template('gauge.html')
 
 @app.route('/settings')
 @login_required
