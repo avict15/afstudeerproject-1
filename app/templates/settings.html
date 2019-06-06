@@ -17,7 +17,7 @@
                 <h1 class="display-1"> {{chargingpoint.id}} </h1>
             </td>
             <td>
-                <form onChange="this.form.submit()" action="../../api/unknown_usage/{{chargingpoint.id}}" method="post" target="hidden-form">
+                <form action="../../api/unknown_usage/{{chargingpoint.id}}" method="post" target="hidden-form">
                     <label class="switch">
                         {% if chargingpoint.unknown_usage %}
                             <input type="checkbox" onclick="this.form.submit();" checked>
@@ -28,12 +28,12 @@
                     </label> 
                 </form>   
             </td>
+            
         </tr>
     {% endfor %}
     </tbody>
   </table>
 </div>
-
 
 
 {% endblock %}

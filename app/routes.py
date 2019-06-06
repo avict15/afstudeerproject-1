@@ -36,36 +36,27 @@ def index():
     chargepoints = Chargingpoint.query.all()
     timeUsage = timedelta(0)
     totalprice = 0
+    amount = 0
     for session in sessions:
+        amount += 1
         timeUsage += session.endtime - session.created
         for chargepoint in chargepoints:
             if chargepoint.id is session.chargingpoint_id:
-                totalprice += ((session.endtime - session.created).seconds / 3600 ) * chargepoint.price
-    return render_template('index.html', title='Home', sessions=sessions, datetime=datetime, time=timeUsage, price=totalprice)
+                totalprice += ((session.endtime - session.created).total_seconds() / 3600 ) * chargepoint.price
+    return render_template('index.html', title='Home', sessions=sessions, datetime=datetime, time=timeUsage, price=totalprice, amount=amount)
 
 @app.route('/search/<string:name>')
 @login_required
 def search_results(name):
-    user = User.query.filter_by(username = name).first_or_404()
+    user = User.query.filter_by(name = name).first_or_404()
     sessions = Session.query.filter_by(user_id = user.id).order_by(Session.created.desc())
-    return render_template('index.html', title=user.name, sessions=sessions, datetime=datetime)
+    return render_template('search.html', title=user.name, sessions=sessions, datetime=datetime)
 
 @app.route('/settings')
 @login_required
 def settings():
     chargepoints = Chargingpoint.query.all()
-    sessions = Session.query.filter_by(endtime = None)
-    users = User.query.all()
-    form = SendMessageForm()
-    name = request.form.get('user', None)
-    if name is not None:
-        user = User.query.filter_by(id = form.user.data).first_or_404()
-        print('test', file=sys.stderr)
-        message = Message(recipient=user,body=form.text.data)
-        db.session.add(message)
-        db.session.commit()
-        return redirect(url_for('settings'))
-    return render_template('settings.html', title='Settings', chargingpoints=chargepoints, sessions=sessions, users=users, form=form)
+    return render_template('settings.html', title='Settings', chargingpoints=chargepoints)
 
 
 

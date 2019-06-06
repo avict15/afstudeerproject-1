@@ -74,6 +74,14 @@ def unknown_usage(key):
         db.session.commit()
         return str(chargingpoint.unknown_usage), 201
 
+@app.route('/api/setprice/<int:chargingpoint>/<int:key>', methods=["POST"])
+def setprice(chargingpoint,key):
+        chargingpoint = Chargingpoint.query.filter_by(id = chargingpoint).first_or_404()
+        print(str(chargingpoint.unknown_usage), file=sys.stderr)
+        chargingpoint.price = key
+        db.session.commit()
+        return str(chargingpoint.price), 201
+
 @app.route('/api/stop_session/chargingpoint_<int:key>', methods=["POST"])
 def stop_session(key):
         chargingpoint = Chargingpoint.query.filter_by(id = key).first_or_404()

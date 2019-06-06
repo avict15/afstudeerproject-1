@@ -1,22 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}  
-<!-- <input class="form-control session_search" id="session_search" type="text" placeholder="Search.."> -->
-<br>
 <div class="table-responsive" style="font-size:20px">         
-  <table class="sessions_table table">
+  <table class="index_table table">
     <thead>
       <tr>
         <th>ID</th>
         <th>Chargingpoint</th>
-        <th>User</th>
         <th>Date</th>
-        <th>Status</th>
         <th>Length</th>
         <th>Price</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="index_table">
     {% for session in sessions%}
       <tr>
         <td>{{session.id}}</td>
@@ -27,7 +23,6 @@
        {% endif %}
        {% endfor %}
         <td>{{session.created.strftime(('%d-%m-%y %H:%M:%S'))}}</td>
-        <td>{{session.status}}</td>
        {% if session.endtime is not none %}
         <td>{{(session.endtime - session.created)}} </td>
         <td>{{(((session.endtime - session.created).total_seconds() / 3600) * 1)|round}}</td>
@@ -40,20 +35,12 @@
   </table>
 </div>
 
-<script>
-$(document).ready(function(){
-  $("#session_search").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
+<script type="text/javascript">
+  $("table tr").hide();
+  $("table tr").each(function(index){
+    $(this).delay(index*50).show(100);
   });
-});
-
-$("table tr").hide();
-$("table tr").each(function(index){
-  $(this).delay(index*50).show(100);
-});
 </script>
+
   
 {% endblock %}
