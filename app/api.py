@@ -118,7 +118,7 @@ def authorize_session_unknown_user(key):
 
 @app.errorhandler(404)
 def not_found(error):
-        return make_response(jsonify({'error': 'Not found'}), 404)
+        return make_response(jsonify({'avi': 'is gay'}), 404)
 
 @app.errorhandler(415)
 def wrong_input(error):
