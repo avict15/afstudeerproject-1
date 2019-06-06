@@ -6,7 +6,7 @@
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from app import app, db
-from flask import make_response, request, abort, jsonify,  redirect, url_for
+from flask import make_response, request, abort, jsonify,  redirect, url_for, render_template
 from app.models import User, Session, Chargingpoint, Message
 from datetime import datetime
 import sys
@@ -118,7 +118,7 @@ def authorize_session_unknown_user(key):
 
 @app.errorhandler(404)
 def not_found(error):
-        return make_response(jsonify({'avi': 'is gay'}), 404)
+        return render_template('404.html', title="404 Not found")
 
 @app.errorhandler(415)
 def wrong_input(error):
