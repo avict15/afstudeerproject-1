@@ -39,10 +39,11 @@ def index():
     amount = 0
     for session in sessions:
         amount += 1
-        timeUsage += session.endtime - session.created
-        for chargepoint in chargepoints:
-            if chargepoint.id is session.chargingpoint_id:
-                totalprice += ((session.endtime - session.created).total_seconds() / 3600 ) * chargepoint.price
+        if session.endtime:
+            timeUsage += session.endtime - session.created
+            for chargepoint in chargepoints:
+                if chargepoint.id is session.chargingpoint_id:
+                    totalprice += ((session.endtime - session.created).total_seconds() / 3600 ) * chargepoint.price
     return render_template('index.html', title='Home', sessions=sessions, datetime=datetime, time=timeUsage, price=totalprice, amount=amount)
 
 @app.route('/search/<string:name>')
