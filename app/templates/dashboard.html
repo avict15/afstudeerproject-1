@@ -6,7 +6,7 @@
   <table class="table" id="dashboard_table">
     <thead>
       <tr>
-        <th id="dashboard_laadpaal">Laadpaal</th>
+        <th id="dashboard_laadpaal">Charging point</th>
         <th id="dashboard_status">Status</th>
         <th id="dashboard_user">User</th>
         <th id="dashboard_start_time">Start Time</th>
@@ -24,9 +24,7 @@
           {% if session.chargingpoint_id == chargingpoint.id and session.endtime == None %}
           <td id="dashboard_status_value">
             <h1> {{session.status}} </h1>
-          </td>
-          
-            
+          </td>       
               {% for user in users %}
                 {% if user.id == session.user_id %}
                   <td id="dashboard_user_value">

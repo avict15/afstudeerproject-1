@@ -23,7 +23,7 @@
 body {
   /* background-image:  url('/background.png'); */
   /* background-color: #eee; */
-  background-color:black;
+  background-color: lightgray;
 }
 
 .fa {
@@ -58,7 +58,11 @@ hr {
 }
 
 h1, h2, h3, h4, h5, h6, p, td, tr{
-  color: #CCC3C1;
+  color: black;
+ }
+
+ .navbar h3{
+   color:white;
  }
  
  .modal-content h5, .modal-content textarea, .modal-content input {
@@ -311,7 +315,7 @@ body {
 
 .card-light
 {
-  border: 1px solid white;
+  border: 2px solid black;
   border-radius: 10px;
 }
 
