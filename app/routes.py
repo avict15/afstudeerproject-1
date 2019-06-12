@@ -15,6 +15,10 @@ from datetime import datetime,timedelta
 import sys
 import os
 
+@app.route('/logout.png')
+def logoutimage():
+    return send_from_directory(os.path.join(app.root_path, 'static'),'logout.png', mimetype='image/vnd.microsoft.icon')
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
