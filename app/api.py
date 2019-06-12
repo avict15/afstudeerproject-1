@@ -43,7 +43,7 @@ def authorize_session(message_id):
         db.session.commit()
         Message.query.filter_by(id=message_id).delete()
         db.session.commit()
-        return redirect(url_for('admin_dashboard'))
+        return redirect(url_for('index'))
 
 def create_session_unknown_user(key, licenseplate):
         chargingpoint = Chargingpoint.query.filter_by(id = key).first_or_404()
