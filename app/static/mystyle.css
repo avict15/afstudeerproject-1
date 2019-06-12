@@ -21,9 +21,9 @@
   margin-right:0px;
 }
 body {
-  background-image:  url('/background.png');
+  /* background-image:  url('/background.png'); */
   /* background-color: #eee; */
-  color:white;
+  background-color:black;
 }
 
 .fa {
