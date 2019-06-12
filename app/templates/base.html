@@ -56,11 +56,11 @@
     <div class="form-inline my-2 my-lg-0">
         {% if current_user.name == 'Koen' %}
         <a href="{{ url_for('settings') }}"><img src="{{ url_for('static', filename='settings.png') }}" width="30" height="30" style="margin-right: 15px"></a>
+        <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search">
         {% endif %}
       {% if current_user.is_anonymous %}
         <li class="nav navbar-nav navbar-right"><a class="nav-link" href="{{ url_for('login') }}"><h3>Login</h3></a></li>
       {% else %}
-        <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search">
         <h2 class="text-white" style="margin-left: 20px; margin-right: 20px;"> <a href="{{ url_for('profile') }} "style="color:white">{{ current_user.name }}  </a>        </h2>
         <a href="{{ url_for('logout') }}"><img src="{{ url_for('static', filename='logout.png') }}" width="30" height="30" style="margin-right: 15px"></a>
     {% endif %}
