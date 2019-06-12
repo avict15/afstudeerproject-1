@@ -57,6 +57,25 @@ def search_results(name):
     sessions = Session.query.filter_by(user_id = user.id).order_by(Session.created.desc())
     return render_template('search.html', title=user.name, sessions=sessions, datetime=datetime)
 
+@app.route('/profile')
+@login_required
+def profile():
+    user = User.query.filter_by(username = current_user.username).first_or_404()
+    sessions = Session.query.filter_by(user_id = user.id).order_by(Session.created.desc())
+    chargepoints = Chargingpoint.query.all()
+    timeUsage = timedelta(0)
+    totalprice = 0
+    amount = 0
+    for session in sessions:
+        amount += 1
+        if session.endtime:
+            timeUsage += session.endtime - session.created
+            for chargepoint in chargepoints:
+                if chargepoint.id is session.chargingpoint_id:
+                    totalprice += ((session.endtime - session.created).total_seconds() / 3600 ) * chargepoint.price
+    return render_template('profile.html', user=user, amount=amount, price=totalprice)
+
+
 @app.route('/settings')
 @login_required
 def settings():
