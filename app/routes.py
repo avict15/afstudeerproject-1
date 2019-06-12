@@ -5,7 +5,7 @@
 # 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from flask import render_template, flash, redirect, url_for, request, send_from_directory
+from flask import render_template, flash, redirect, url_for, request, send_from_directory, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
@@ -53,9 +53,12 @@ def index():
 @app.route('/search/<string:name>')
 @login_required
 def search_results(name):
-    user = User.query.filter_by(name = name).first_or_404()
-    sessions = Session.query.filter_by(user_id = user.id).order_by(Session.created.desc())
-    return render_template('search.html', title=user.name, sessions=sessions, datetime=datetime)
+    if current_user.name != 'Koen':
+        abort(404)
+    else:
+        user = User.query.filter_by(name = name).first_or_404()
+        sessions = Session.query.filter_by(user_id = user.id).order_by(Session.created.desc())
+        return render_template('search.html', title=user.name, sessions=sessions, datetime=datetime)
 
 @app.route('/profile')
 @login_required
@@ -79,8 +82,12 @@ def profile():
 @app.route('/settings')
 @login_required
 def settings():
-    chargepoints = Chargingpoint.query.all()
-    return render_template('settings.html', title='Settings', chargingpoints=chargepoints)
+    print(str(current_user.name), file=sys.stderr)
+    if current_user.name != 'Koen':
+        abort(404)
+    else:
+        chargepoints = Chargingpoint.query.all()
+        return render_template('settings.html', title='Settings', chargingpoints=chargepoints)
 
 
 
@@ -104,26 +111,32 @@ def delete_message(message_id):
 @app.route('/admin/dashboard', methods=['GET','POST'])
 @login_required
 def admin_dashboard():
-    chargepoints = Chargingpoint.query.all()
-    sessions = Session.query.filter_by(endtime = None)
-    users = User.query.all()
-    form = SendMessageForm()
-    name = request.form.get('user', None)
-    if name is not None:
-        user = User.query.filter_by(id = form.user.data).first_or_404()
-        print('test', file=sys.stderr)
-        message = Message(recipient=user,body=form.text.data)
-        db.session.add(message)
-        db.session.commit()
-        return redirect(url_for('admin_dashboard'))
-    return render_template('dashboard.html', title='Dashboard', chargingpoints=chargepoints, sessions=sessions, users=users, form=form)
+    if current_user.name != 'Koen':
+        abort(404)
+    else:
+        chargepoints = Chargingpoint.query.all()
+        sessions = Session.query.filter_by(endtime = None)
+        users = User.query.all()
+        form = SendMessageForm()
+        name = request.form.get('user', None)
+        if name is not None:
+            user = User.query.filter_by(id = form.user.data).first_or_404()
+            print('test', file=sys.stderr)
+            message = Message(recipient=user,body=form.text.data)
+            db.session.add(message)
+            db.session.commit()
+            return redirect(url_for('admin_dashboard'))
+        return render_template('dashboard.html', title='Dashboard', chargingpoints=chargepoints, sessions=sessions, users=users, form=form)
 
 @app.route('/admin/dashboard_table')
 @login_required
 def admin_dashboard_table():
-    sessions = Session.query.order_by(Session.created.desc())
-    users = User.query.all()
-    return render_template('admin_table.html', title='Sessions', sessions=sessions, users=users)
+    if current_user.name != 'Koen':
+        abort(404)
+    else:
+        sessions = Session.query.order_by(Session.created.desc())
+        users = User.query.all()
+        return render_template('admin_table.html', title='Sessions', sessions=sessions, users=users)
 
 
 @app.route('/unknown_user', methods=['GET'])

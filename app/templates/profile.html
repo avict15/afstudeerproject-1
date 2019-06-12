@@ -19,7 +19,7 @@
                                 <div class="userData ml-3">
                                     <h1 class="d-block" style="font-weight: bold">{{user.name}}</h1>
                                     <h3 class="d-block">{{amount}} sessions </h3>
-                                    <h3 class="d-block"> € {{price}}</h3>
+                                    <h3 class="d-block"> € {{price|round}}</h3>
                                 </div>
                                 <div class="ml-auto">
                                     <input type="button" class="btn btn-primary d-none" id="btnDiscard" value="Discard Changes" />
